@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depth Tracker</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+        }
+        #depth {
+            font-size: 2rem;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+<body>
+    <h1>Depth Tracker</h1>
+    <div id="depth">Depth: 0 meters</div>
+    <button id="reset">Reset</button>
+
+    <script>
+        let depth = 0;
+        let isMeasuring = false;
+
+        // Function to request permission and start measuring depth
+        async function startMeasuring() {
+            try {
+                // Request permission for device motion
+                const permission = await DeviceMotionEvent.requestPermission();
+                if (permission === 'granted') {
+                    isMeasuring = true;
+                    window.addEventListener('devicemotion', handleMotion);
+                } else {
+                    alert("Permission to access motion data was denied.");
+                }
+            } catch (error) {
+                console.error("Error requesting permission:", error);
+            }
+        }
+
+        // Function to handle device motion
+        function handleMotion(event) {
+            if (!isMeasuring) return;
+            const acceleration = event.acceleration;
+            if (acceleration && acceleration.z) {
+                depth = Math.max(0, (10 + acceleration.z)); // Adjust based on your calibration
+                document.getElementById('depth').innerText = `Depth: ${depth.toFixed(2)} meters`;
+            }
+        }
+
+        // Reset function
+        function resetDepth() {
+            depth = 0;
+            document.getElementById('depth').innerText = `Depth: ${depth} meters`;
+        }
+
+        // Event listeners
+        document.getElementById('reset').addEventListener('click', resetDepth);
+        startMeasuring();
+    </script>
+</body>
+</html>
