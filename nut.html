@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    <script>
+        let countdown = 3;
+
+        function updateCountdown() {
+            if (countdown > 0) {
+                document.getElementById("countdown").innerText = countdown + "..";
+                countdown--;
+            } else {
+                document.getElementById("message").innerText = "I warned you!";
+                clearInterval(interval);
+                setTimeout(() => {
+                    window.location.href = "https://www.google.com/search?q=indeed+ligma&rlz=1CAPNTQ_enUS1131&oq=pls&gs_lcrp=EgZjaHJvbWUqBwgAEAAYjwIyBwgAEAAYjwIyEwgBEC4YxwEYsQMYyQMY0QMYgAQyEAgCEC4YrwEYxwEYgAQYjgUyCggDEAAYsQMYgAQyDAgEEAAYChixAxiABDINCAUQABiDARixAxiABDINCAYQABiSAxiABBiKBTIHCAcQABiABDIJCAgQABgKGIAEMhAICRAuGMcBGLEDGNEDGIAE0gEHNjAwajBqN6gCALACAA&sourceid=chrome&ie=UTF-8&safe=active&ssui=on";
+                }, 1000);
+            }
+        }
+
+        let interval = setInterval(updateCountdown, 1000);
+    </script>
+</head>
+<body>
+    <h1>Redirecting in...</h1>
+    <h2 id="countdown">3..</h2>
+    <h3 id="message"></h3>
+</body>
+</html>
