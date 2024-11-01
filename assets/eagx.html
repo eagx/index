@@ -26,6 +26,7 @@
             width: 100%;
             height: 100%;
             border: none;
+            border-radius: 5px; /* Rounded edges for iframe */
         }
         .fullscreen-button {
             margin-top: 10px; /* Space between iframe and button */
@@ -37,6 +38,7 @@
             font-size: 16px;
             text-align: center;
             width: 100%;
+            border-radius: 5px; /* Rounded edges for button */
         }
         .fullscreen-button:hover {
             background-color: #7d7d7d; /* Darker gray on hover */
@@ -76,7 +78,8 @@
                                 document.webkitFullscreenElement || 
                                 document.msFullscreenElement;
 
-            button.style.display = isFullScreen ? 'none' : 'block';
+            // Check if the iframe container is in full-screen mode
+            button.style.display = (isFullScreen && document.fullscreenElement === document.querySelector('.iframe-container')) ? 'none' : 'block';
         }
     </script>
 </body>
