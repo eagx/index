@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>scientific method - Google Search</title>
+    <link rel="icon" type="image/x-icon" href="../img/google.png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        #audioControls {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: inline-block;
+        }
+        input[type="text"], input[type="button"], input[type="range"] {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+        }
+        input[type="range"] {
+            width: 100%;
+        }
+        input[type="button"] {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        var context = null;
+        var usingWebAudio = true;
+
+        if (typeof AudioContext !== 'undefined') {
+            context = new AudioContext();
+        } else if (typeof webkitAudioContext !== 'undefined') {
+            context = new webkitAudioContext();
+        } else {
+            usingWebAudio = false;
+        }
+
+        var playing = false;
+        var osc = null;
+        var freq = 440;
+
+        function toggle() {
+            var button = document.getElementById("toggle");
+            if (playing && osc) {
+                playing = false;
+                osc.stop(0);
+                button.value = "Play";
+            } else {
+                playing = true;
+                osc = context.createOscillator();
+                osc.connect(context.destination);
+                osc.frequency.value = freq;
+                osc.start(0);
+                button.value = "Stop";
+            }
+        }
+
+        function updateFreq(newFreq) {
+            freq = newFreq;
+            if (osc) {
+                osc.frequency.value = freq;
+            }
+            document.getElementById("freqText").value = freq;
+            document.getElementById("freqRange").value = freq;
+        }
+
+        window.onload = function() {
+            if (!usingWebAudio) {
+                document.getElementById("audioControls").innerHTML = "<p>Web audio required.</p>";
+            }
+        };
+    </script>
+</head>
+<body>
+    <div id="audioControls">
+        <h1>Hertz Generator</h1>
+        <input id="freqText" type="text" value="440" onchange="updateFreq(this.value)" />
+        <div>
+            <input type="button" value="-1 octave" onclick="updateFreq(freq / 2)" />
+            <input type="button" value="+1 octave" onclick="updateFreq(freq * 2)" />
+        </div>
+        <input id="freqRange" type="range" min="0" max="20000" value="440" oninput="updateFreq(this.value)" />
+        <br>
+        <input id="toggle" type="button" value="Play" onclick="toggle()" />
+    </div>
+</body>
+</html>
