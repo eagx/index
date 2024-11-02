@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Me!</title>
+    <link id="favicon" rel="icon" href="default-icon.png" type="image/png">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        input {
+            margin: 10px;
+            padding: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Change Page Title and Icon</h1>
+    <input type="text" id="titleInput" placeholder="Enter new title">
+    <input type="text" id="imageInput" placeholder="Enter image URL">
+    <button onclick="updateTitleAndIcon()">Update</button>
+
+    <script>
+        function updateTitleAndIcon() {
+            const title = document.getElementById('titleInput').value;
+            const imageUrl = document.getElementById('imageInput').value;
+
+            if (title) {
+                document.title = title;
+            }
+
+            if (imageUrl) {
+                const favicon = document.getElementById('favicon');
+                favicon.href = imageUrl;
+            }
+        }
+    </script>
+</body>
+</html>
