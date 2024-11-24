@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to Data URL Encoder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        #encodedUrl {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .copy-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .copy-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Code to Data URL Encoder</h1>
+    <p>Enter your HTML code below and click "Generate Data URL".</p>
+    <textarea id="htmlInput" placeholder="Enter HTML code here..."></textarea><br>
+    <button onclick="generateDataUrl()">Generate Data URL</button><br>
+
+    <div class="button-container">
+        <input type="text" id="encodedUrl" readonly placeholder="Generated Data URL will appear here...">
+        <button class="copy-button" onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+
+    <script>
+        function generateDataUrl() {
+            const htmlCode = document.getElementById("htmlInput").value;
+            if (htmlCode.trim() === "") {
+                alert("Please enter some HTML code.");
+                return;
+            }
+            // Encode the HTML code and prepend data:text/html;charset=utf-8
+            const encodedHtml = encodeURIComponent(htmlCode);
+            const dataUrl = `data:text/html;charset=utf-8,${encodedHtml}`;
+            // Output the generated URL
+            document.getElementById("encodedUrl").value = dataUrl;
+        }
+
+        function copyToClipboard() {
+            const dataUrlInput = document.getElementById("encodedUrl");
+            dataUrlInput.select();
+            document.execCommand("copy");
+            alert("Data URL copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
